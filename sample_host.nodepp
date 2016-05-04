@@ -1,0 +1,7 @@
+{
+	"runner": "sample_runner.cpp",
+	"dependencies": [ 
+		"https://o1fast.com/nodepp_host/samples/lukewarm.nodepp"
+	]
+}
+
