@@ -29,27 +29,46 @@ endif( )
 
 enable_testing( )
 
+ExternalProject_Add(
+    header_libraries
+    GIT_REPOSITORY "https://github.com/beached/header_libraries.git"
+    SOURCE_DIR "${CMAKE_BINARY_DIR}/3rdparty/header_libraries"
+    GIT_TAG "master"
+    PATCH_COMMAND ""
+    INSTALL_COMMAND ""
+    TEST_COMMAND ""
+)
+
 ExternalProject_Add( 
 	nodepp
 	GIT_REPOSITORY "https://github.com/beached/nodepp.git" 
 	GIT_TAG "master"
 	PATCH_COMMAND ""
 	INSTALL_COMMAND ""
-	SOURCE_DIR "${CMAKE_SOURCE_DIR}/3rdparty/nodepp"
+	SOURCE_DIR "${CMAKE_BINARY_DIR}/3rdparty/nodepp"
 	TEST_COMMAND ""
  )
 
-set( SOURCE_FILES
-	nodepp_host.cpp
- )
 
-include_directories( "${CMAKE_SOURCE_DIR}/3rdparty/nodepp/char_range" )
-include_directories( "${CMAKE_SOURCE_DIR}/3rdparty/nodepp/header_libraries" )
-include_directories( "${CMAKE_SOURCE_DIR}/3rdparty/nodepp/lib_nodepp" )
-include_directories( "${CMAKE_SOURCE_DIR}/3rdparty/nodepp/load_library" )
+ExternalProject_Get_Property( nodepp source_dir )
+include_directories( "${source_dir}/lib_nodepp" )
+include_directories( "${source_dir}/load_library" )
+include_directories( "${source_dir}/char_range" )
+
+include_directories( SYSTEM "${CMAKE_BINARY_DIR}/3rdparty/header_libraries" )
+
 include_directories( SYSTEM ${Boost_INCLUDE_DIRS} )
-
 link_directories( ${Boost_LIBRARY_DIRS} )
 
+ExternalProject_Get_Property( nodepp binary_dir )
+link_directories( "${binary_dir}/lib_nodepp" )
+link_directories( "${binary_dir}/lib_nodepp/parse_json" )
+link_directories( "${binary_dir}/load_library" )
+link_directories( "${binary_dir}/char_range" )
+
+set( SOURCE_FILES
+	nodepp_host.cpp
+)
+
 add_executable( nodepp_host ${SOURCE_FILES} )
-target_link_libraries( nodepp_host ${CMAKE_DL_LIBS} ${Boost_Libs} ${CMAKE_THREAD_LIBS_INIT} ${COMPILER_SPECIFIC_LIBS} )
+target_link_libraries( nodepp_host parse_json load_library char_range ${CMAKE_DL_LIBS} ${Boost_Libs} ${CMAKE_THREAD_LIBS_INIT} ${COMPILER_SPECIFIC_LIBS} )
