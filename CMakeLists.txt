@@ -55,7 +55,7 @@ include_directories( "${source_dir}/lib_nodepp" )
 include_directories( "${source_dir}/load_library" )
 include_directories( "${source_dir}/char_range" )
 
-include_directories( SYSTEM "${CMAKE_BINARY_DIR}/3rdparty/header_libraries" )
+include_directories( "${CMAKE_BINARY_DIR}/3rdparty/header_libraries" )
 
 include_directories( SYSTEM ${Boost_INCLUDE_DIRS} )
 link_directories( ${Boost_LIBRARY_DIRS} )
