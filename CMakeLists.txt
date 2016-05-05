@@ -27,7 +27,7 @@ if( THREADS_HAVE_PTHREAD_ARG )
 	set( COMPILER_SPECIFIC_LIBS, "-lpthread" )
 endif( )
 
-enable_testing( )
+#enable_testing( )
 
 ExternalProject_Add(
     header_libraries
