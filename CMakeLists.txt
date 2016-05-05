@@ -27,7 +27,7 @@ if( THREADS_HAVE_PTHREAD_ARG )
 	set( COMPILER_SPECIFIC_LIBS, "-lpthread" )
 endif( )
 
-#enable_testing( )
+#	enable_testing( )
 
 ExternalProject_Add(
     header_libraries
@@ -36,7 +36,6 @@ ExternalProject_Add(
     GIT_TAG "master"
     PATCH_COMMAND ""
     INSTALL_COMMAND ""
-    TEST_COMMAND ""
 )
 
 ExternalProject_Add( 
@@ -46,7 +45,6 @@ ExternalProject_Add(
 	PATCH_COMMAND ""
 	INSTALL_COMMAND ""
 	SOURCE_DIR "${CMAKE_BINARY_DIR}/3rdparty/nodepp"
-	TEST_COMMAND ""
  )
 
 
