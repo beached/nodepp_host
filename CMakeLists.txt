@@ -49,7 +49,7 @@ ExternalProject_Add(
 
 
 ExternalProject_Get_Property( nodepp source_dir )
-include_directories( "${source_dir}/lib_nodepp" )
+include_directories( "${source_dir}/nodepp" )
 include_directories( "${source_dir}/load_library" )
 include_directories( "${source_dir}/char_range" )
 
@@ -59,8 +59,8 @@ include_directories( SYSTEM ${Boost_INCLUDE_DIRS} )
 link_directories( ${Boost_LIBRARY_DIRS} )
 
 ExternalProject_Get_Property( nodepp binary_dir )
-link_directories( "${binary_dir}/lib_nodepp" )
-link_directories( "${binary_dir}/lib_nodepp/parse_json" )
+link_directories( "${binary_dir}/nodepp" )
+link_directories( "${binary_dir}/nodepp/parse_json" )
 link_directories( "${binary_dir}/load_library" )
 link_directories( "${binary_dir}/char_range" )
 
