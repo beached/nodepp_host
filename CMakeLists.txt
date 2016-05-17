@@ -6,14 +6,11 @@ set( Boost_USE_STATIC_LIBS OFF )
 set( Boost_USE_MULTITHREADED ON )  
 set( Boost_USE_STATIC_RUNTIME OFF ) 
 find_package( Boost 1.59.0 REQUIRED COMPONENTS system filesystem regex unit_test_framework program_options iostreams )
-#set( Boost_Libs ${BOOST_Libraries} -lboost_system -lboost_regex -lboost_filesystem -lboost_program_options -lboost_iostreams )
-set( Boost_Libs ${Boost_LIBRARIES} )
 
 MESSAGE( WARNING "Current Compiler:" ${CMAKE_CXX_COMPILER_ID} )
 IF( ${CMAKE_CXX_COMPILER_ID} STREQUAL 'MSVC' )
 	MESSAGE( WARNING "Using Visual Studio" )
-	set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_WIN32_WINNT=0x0601 /MP" )
-	set( Boost_Libs )
+	set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_WIN32_WINNT=0x0601" )
 ELSEIF( ${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" )
 	MESSAGE( WARNING "Using Clang" )
 	find_package( Threads REQUIRED )
@@ -27,8 +24,6 @@ ENDIF( )
 if( THREADS_HAVE_PTHREAD_ARG )
 	set( COMPILER_SPECIFIC_LIBS, "-lpthread" )
 endif( )
-
-#	enable_testing( )
 
 ExternalProject_Add(
     header_libraries
@@ -70,4 +65,4 @@ set( SOURCE_FILES
 )
 
 add_executable( nodepp_host ${SOURCE_FILES} )
-target_link_libraries( nodepp_host parse_json load_library char_range ${CMAKE_DL_LIBS} ${Boost_Libs} ${CMAKE_THREAD_LIBS_INIT} ${COMPILER_SPECIFIC_LIBS} )
+target_link_libraries( nodepp_host parse_json load_library char_range ${CMAKE_DL_LIBS} ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} ${COMPILER_SPECIFIC_LIBS} )
