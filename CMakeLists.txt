@@ -25,6 +25,7 @@ ExternalProject_Add(
     header_libraries
     GIT_REPOSITORY "https://github.com/beached/header_libraries.git"
     SOURCE_DIR "${CMAKE_BINARY_DIR}/3rdparty/header_libraries"
+	BINARY_DIR "${CMAKE_BINARY_DIR}"
     GIT_TAG "master"
     PATCH_COMMAND ""
     INSTALL_COMMAND ""
@@ -36,6 +37,7 @@ ExternalProject_Add(
 	GIT_TAG "master"
 	PATCH_COMMAND ""
 	INSTALL_COMMAND ""
+	BINARY_DIR "${CMAKE_BINARY_DIR}"
 	SOURCE_DIR "${CMAKE_BINARY_DIR}/3rdparty/nodepp"
  )
 
