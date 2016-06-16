@@ -21,11 +21,17 @@ if( THREADS_HAVE_PTHREAD_ARG )
 	set( COMPILER_SPECIFIC_LIBS, "-lpthread" )
 endif( )
 
+if( ${BINARY_DIR} MATCHES "/binary$" )
+    set( DEP_BINARY_DIR "${CMAKE_BINARY_DIR}" )
+else( )
+    set( DEP_BINARY_DIR "${CMAKE_BINARY_DIR}/binary" )
+endif( )
+
 ExternalProject_Add(
     header_libraries
     GIT_REPOSITORY "https://github.com/beached/header_libraries.git"
     SOURCE_DIR "${CMAKE_BINARY_DIR}/3rdparty/header_libraries"
-	BINARY_DIR "${CMAKE_BINARY_DIR}"
+	BINARY_DIR "${DEP_BINARY_DIR}"
     GIT_TAG "master"
     PATCH_COMMAND ""
     INSTALL_COMMAND ""
@@ -37,7 +43,7 @@ ExternalProject_Add(
 	GIT_TAG "master"
 	PATCH_COMMAND ""
 	INSTALL_COMMAND ""
-	BINARY_DIR "${CMAKE_BINARY_DIR}"
+	BINARY_DIR "${DEP_BINARY_DIR}"
 	SOURCE_DIR "${CMAKE_BINARY_DIR}/3rdparty/nodepp"
  )
 
