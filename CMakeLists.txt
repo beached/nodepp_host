@@ -30,21 +30,23 @@ endif( )
 ExternalProject_Add(
     header_libraries
     GIT_REPOSITORY "https://github.com/beached/header_libraries.git"
-    SOURCE_DIR "${CMAKE_BINARY_DIR}/3rdparty/header_libraries"
+    SOURCE_DIR "${DEP_BINARY_DIR}/3rdparty/header_libraries"
 	BINARY_DIR "${DEP_BINARY_DIR}"
+	INSTALL_DIR "${DEP_BINARY_DIR}/install"
+	CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${DEP_BINARY_DIR}/install
     GIT_TAG "master"
     PATCH_COMMAND ""
-    INSTALL_COMMAND ""
 )
 
 ExternalProject_Add( 
 	nodepp
 	GIT_REPOSITORY "https://github.com/beached/nodepp.git" 
+	BINARY_DIR "${DEP_BINARY_DIR}"
+	SOURCE_DIR "${DEP_BINARY_DIR}/3rdparty/nodepp"
+	INSTALL_DIR "${DEP_BINARY_DIR}/install"
+	CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${DEP_BINARY_DIR}/install
 	GIT_TAG "master"
 	PATCH_COMMAND ""
-	INSTALL_COMMAND ""
-	BINARY_DIR "${DEP_BINARY_DIR}"
-	SOURCE_DIR "${CMAKE_BINARY_DIR}/3rdparty/nodepp"
  )
 
 
@@ -53,7 +55,7 @@ include_directories( "${source_dir}/nodepp" )
 include_directories( "${source_dir}/load_library" )
 include_directories( "${source_dir}/char_range" )
 
-include_directories( "${CMAKE_BINARY_DIR}/3rdparty/header_libraries" )
+include_directories( "${DEP_BINARY_DIR}/3rdparty/header_libraries" )
 
 include_directories( SYSTEM ${Boost_INCLUDE_DIRS} )
 link_directories( ${Boost_LIBRARY_DIRS} )
